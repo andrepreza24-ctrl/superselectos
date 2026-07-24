@@ -6,15 +6,14 @@ import { useCart } from "@/context/CartContext";
 import { toast } from "sonner";
 
 export default function CartPage() {
-  // aca traigo todas las funciones del context para el carrito
+    // aca traigo todas las funciones del context para el carrito
   const { carrito, incrementar, disminuir, eliminarDelCarrito, vaciarCarrito, total } = useCart();
 
   function manejarEliminar(id: number, titulo: string) {
     eliminarDelCarrito(id);
     toast.error(`${titulo} eliminado`);
   }
-
-  // aca valido si no hay nada en el carrito para mostrar el mensaje
+    // aca valido si no hay nada en el carrito para mostrar el mensaje
   if (carrito.length === 0) {
     return (
       <div className="text-center py-5">
@@ -30,8 +29,8 @@ export default function CartPage() {
 
       {carrito.map((item) => (
         <div className="card mb-2" key={item.id}>
-          <div classsName="d-fles align-items-center p-2 flex-wrap">
-            <Imagee
+          <div className="d-flex align-items-center p-2 flex-wrap">
+            <Image
               src={item.imagenUrl}
               alt={item.titulo}
               width={60}
@@ -44,26 +43,24 @@ export default function CartPage() {
             </div>
 
             <div className="d-flex align-items-center me-3">
-              <button className="btn btn-sm btn-outline-secondary" onClik={() => disminuir(item.id)}>-</button>
+              <button className="btn btn-sm btn-outline-secondary" onClick={() => disminuir(item.id)}>-</button>
               <span className="mx-2">{item.cantidad}</span>
               <button className="btn btn-sm btn-outline-secondary" onClick={() => incrementar(item.id)}>+</button>
             </div>
 
             <strong className="me-3">${(item.precio * item.cantidad).toFixed(2)}</strong>
 
-            {}
-            <buttonn
+            <button
               className="btn btn-sm btn-danger"
               onClick={() => manejarEliminar(item.id, item.titulo)}
             >
               Eliminar
-            </buttonn>
+            </button>
           </div>
         </div>
       ))}
 
       <div className="d-flex justify-content-between align-items-center mt-4">
-        {}
         <h4>Total: ${total.toFixed(2)}</h4>
         <div>
           <button className="btn btn-outline-secondary me-2" onClick={vaciarCarrito}>
