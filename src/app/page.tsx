@@ -32,8 +32,8 @@ export default function Home() {
 
       <div className="row">
         {productosFiltrados.map((producto) => (
-          <div className="col-12 col-md-6 col-lg-4">
-            <ProductCard key={producto.id} producto={producto} />
+          <div className="col-12 col-md-6 col-lg-4" key={producto.id}>
+            <ProductCard producto={producto} />
           </div>
         ))}
       </div>
