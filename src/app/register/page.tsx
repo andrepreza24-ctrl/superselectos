@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 
 export default function RegisterPage() {
-  // estados simples para capturar lo que ponga en el form
   const [nombre, setNombre] = useState("");
   const [correo, setCorreo] = useState("");
   const [contrasena, setContrasena] = useState("");
@@ -16,22 +15,35 @@ export default function RegisterPage() {
 
   function manejarEnvio(e: React.FormEvent) {
     e.preventDefault();
+    // aca limpio el error viejo por si le vuelve a dar click al boton
+    setError("");
 
-    // esto es para ver si no viene vacio nada
-    if (!nombre || !correo || !contrasena) {
+    // quito espacios de mas para que no mande espacios guardados por error
+    const nombreLimpio = nombre.trim();
+    const correoLimpio = correo.trim();
+
+    // aca valido que vengan llenos los campos despues de quitar espacios
+    if (!nombreLimpio || !correoLimpio || !contrasena) {
       setError("Todos los campos son obligatorios");
       return;
     }
 
-    // esto va a mandar los datos directos al contexto para guardar el usuario
-    const exito = registrar({ nombre, correo, contrasena });
-
-    // si esto pasa manda de un solo a login
-    if (exito) {
-      router.push("/login");
-    } else {
-      setError("Ya existe una cuenta con ese correo");
+    // si hace esto es para evitar que manden claves super cortas que rompan sesion
+    if (contrasena.length < 6) {
+      setError("La contraseña debe tener al menos 6 caracteres");
+      return;
     }
+
+    // mando la data limpia al contexto
+    const exito = registrar({ nombre: nombreLimpio, correo: correoLimpio, contrasena });
+
+    if (!exito) {
+      setError("Ya existe una cuenta con ese correo");
+      return;
+    }
+
+    // si llega aca todo salio bien y manda al login
+    router.push("/login");
   }
 
   return (
@@ -42,6 +54,7 @@ export default function RegisterPage() {
           <div className="mb-3">
             <label className="form-label">Nombre</label>
             <input
+              type="text"
               className="form-control"
               value={nombre}
               onChange={(e) => setNombre(e.target.value)}
@@ -57,7 +70,7 @@ export default function RegisterPage() {
             />
           </div>
           <div className="mb-3">
-            <label className="form-label">Contrasena</label>
+            <label className="form-label">Contraseña</label>
             <input
               type="password"
               className="form-control"
