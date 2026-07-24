@@ -30,13 +30,18 @@ export default function Home() {
         ))}
       </select>
 
-      <div className="row">
-        {productosFiltrados.map((producto) => (
-          <div className="col-12 col-md-6 col-lg-4" key={producto.id}>
-            <ProductCard producto={producto} />
-          </div>
-        ))}
-      </div>
+      { }
+      {productosFiltrados.length === 0 ? (
+        <p className="text-muted">No se encontraron productos en esta categoría.</p>
+      ) : (
+        <div className="row">
+          {productosFiltrados.map((producto) => (
+            <div className="col-12 col-md-6 col-lg-4" key={producto.id}>
+              <ProductCard producto={producto} />
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
