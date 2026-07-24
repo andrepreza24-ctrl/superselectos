@@ -30,17 +30,17 @@ export default function RegisterPage() {
     if (exito) {
       router.push("/login");
     } else {
-      setError("ya existe una cueñtja con este correo");
+      setError("Ya existe una cuenta con ese correo");
     }
   }
 
   return (
     <div className="row justify-content-center">
-      <div className="col-12 col-m-6 col-lg-4">
+      <div className="col-12 col-md-6 col-lg-4">
         <h2 className="mb-3">Crear cuenta</h2>
         <form onSubmit={manejarEnvio}>
           <div className="mb-3">
-            <label className="form-labrl">Nombre</label>
+            <label className="form-label">Nombre</label>
             <input
               className="form-control"
               value={nombre}
@@ -65,9 +65,9 @@ export default function RegisterPage() {
               onChange={(e) => setContrasena(e.target.value)}
             />
           </div>
-          {error && <p className="text-dangre">{error}</p>}
+          {error && <p className="text-danger">{error}</p>}
           <button className="btn btn-primary w-100" type="submit">
-            Regstrarse
+            Registrarse
           </button>
         </form>
       </div>
