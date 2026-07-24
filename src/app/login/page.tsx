@@ -1,36 +1,29 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 
-export default function LoginPage() {
-  // estados para guardar el correo y clave del usuario
+export default function LoginPage(){
   const [correo, setCorreo] = useState("");
   const [contrasena, setContrasena] = useState("");
   const [error, setError] = useState("");
-  
   const { iniciarSesion } = useAuth();
   const router = useRouter();
 
-  function manejarEnvio(e: React.FormEvent) {
+  function manejarEnvio(e: React.FormEvent){
     e.preventDefault();
     setError("");
 
-    // esto manda a llamar a la funcion del contexto para validar las credenciales
     const exito = iniciarSesion(correo, contrasena);
-    if (!exito) {
-      setError("Correo o contrasena incorrectos");
-      return;
+    if(!exito){
+        setError("El correo o la contraseña con incorrectos");
+        return;
     }
-
-    // si pasa manda de un solo al inicio
     router.push("/");
   }
-
   return (
-    // typo en classsName
-    <div classsName="row justify-content-center">
+    <div className="row justify-content-center">
       <div className="col-12 col-md-6 col-lg-4">
         <h2 className="mb-3">Iniciar sesion</h2>
         <form onSubmit={manejarEnvio}>
@@ -38,8 +31,7 @@ export default function LoginPage() {
             <label className="form-label">Correo</label>
             <input
               type="email"
-              // typo en classsName
-              classsName="form-control"
+              className="form-control"
               value={correo}
               onChange={(e) => setCorreo(e.target.value)}
             />
