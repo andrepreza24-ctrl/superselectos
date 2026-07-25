@@ -15,7 +15,7 @@ export default function Home() {
     <div>
       <div className="banner-bienvenida mb-4">
         <h2 className="mb-1">Super Selectos</h2>
-        <p className="mb-0">Los productos de la canasta basica, siempre frescos</p>
+        <p className="mb-0">Productos caros y frescos</p>
       </div>
       <h4 className="mb-3">Catalogo de Productos</h4>
       <div className="d-flex gap-2 mb-4" style={{ overflowX: "auto", paddingBottom: "6px" }}>

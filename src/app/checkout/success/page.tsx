@@ -5,7 +5,7 @@ export default function checkoutSuccessPage(){{
         <div className="text-center py-5">
             <h2 className="text-success mb-3">La compra fue realizada con exito</h2>
             <p>Tu factura fue enviada a tu correo electronico</p>
-            <Link href="/" className="btn btn-primary mt-3">Volver al catalogo</Link>
+            <Link href="/" style={{ color: "var(--color-marca)" }} className="btn mt-3">Volver al catalogo</Link>
         </div>
     );
 }}
