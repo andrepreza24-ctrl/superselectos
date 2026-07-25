@@ -18,7 +18,7 @@ export default function CartPage() {
     return (
       <div className="text-center py-5">
         <h3>Tu carrito esta vacio</h3>
-        <Link href="/" className="btn btn-primary mt-3">Ver catalogo</Link>
+        <Link href="/" style={{ color: "var(--color-marca)" }} className="btn mt-3">Ver catalogo</Link>
       </div>
     );
   }

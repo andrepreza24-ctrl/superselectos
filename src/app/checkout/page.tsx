@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/context/CartContext";
@@ -7,6 +6,7 @@ import { useAuth } from "@/context/AuthContext";
 import { toast } from "sonner";
 import jsPDF from "jspdf";
 import emailjs from "@emailjs/browser";
+import Link from "next/link";
 
 const EMAILJS_SERVICE_ID = "service_lj9t6ss";
 const EMAILJS_TEMPLATE_ID = "template_4s7evlc";
@@ -27,9 +27,20 @@ export default function CheckoutPage() {
     return (
       <div className="text-center py-5">
         <h3>Debes iniciar sesion para finalizar la compra</h3>
-        <button className="btn btn-primary mt-3" onClick={() => router.push("/login")}>
-          Iniciar sesion
-        </button>
+              <button
+                className="btn w-30 text-white mt-2"
+                style={{ backgroundColor: "var(--color-marca)" }}
+                type="submit" onClick={() => router.push("/login")}
+              >
+                Iniciar sesión
+              </button>
+
+        <p className="mt-3 text-muted">
+          No tienes cuenta?{" "}
+        <Link href="/register" style={{ color: "var(--color-marca)" }}>
+            Registrate aqui
+        </Link>
+        </p>
       </div>
     );
   }

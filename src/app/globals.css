@@ -47,3 +47,42 @@ a {
     color-scheme: dark;
   }
 }
+
+:root {
+  --color-marca: #2f6d1f;
+  --color-marca-oscuro: #234f17;
+  --color-marca-claro: #e8f5e0;
+}
+
+body {
+  background-color: #f7f7f7;
+}
+
+.tarjeta-producto {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.tarjeta-producto:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.boton-categoria {
+  border-radius: 20px;
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.navbar-marca {
+  background-color: var(--color-marca) !important;
+}
+
+.banner-bienvenida {
+  background: linear-gradient(135deg, var(--color-marca), var(--color-marca-oscuro));
+  color: white;
+  border-radius: 12px;
+  padding: 32px 24px;
+}
