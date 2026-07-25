@@ -8,11 +8,11 @@ import jsPDF from "jspdf";
 
 export default function ChechoutPage(){
     const { carrito, total, vaciarCarrito } = useCart();
-    const {usuaarioActual} = useAuth();
+    const {usuarioActual } = useAuth();
     const router = useRouter();
-    const [procesado,setProcesado] = useState(false);
+    const [procesando,setProcesando] = useState(false);
 
-    if(!usuaarioActual){// autentificaciones
+    if(!usuarioActual ){// autentificaciones
         return (
             <div className="text-center" py-5>
                 <h3>Debnes iniciar session para finalizar la compra</h3>
@@ -34,8 +34,8 @@ export default function ChechoutPage(){
     // sencilla y facil de entender del tipo encabezado cuerpo con los detalles y los productos,etc.
     function generarFactura(){
         const doc = new jsPDF();
-        const numeroFactura=math.floor(Math.random()*900000) + 100000;
-        const fecha = new date().toLocalString();
+        const numeroFactura=Math.floor(Math.random()*900000) + 100000;
+        const fecha = new Date().toLocaleString();
         doc.setFontSize(15);
         doc.text("Super Selectos - FACTURA DE COMPRA",10,15);
         
@@ -64,7 +64,7 @@ export default function ChechoutPage(){
     y += 7;
     doc.setFontSize(13);
     doc.text('TOTAL: ${total.toFixed(2)}',10,y);
-    return{doc, numerofactura, fecha};
+    return{doc, numeroFactura, fecha};
     }
     function confirmarCompra() {
     setProcesando(true);
