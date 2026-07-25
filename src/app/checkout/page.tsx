@@ -7,12 +7,12 @@ import { toast } from "sonner";
 import jsPDF from "jspdf";
 
 export default function ChechoutPage(){
-    cost {captureRejectionSymbol, total, vaciarCarrito }= useCart();
+    const { carrito, total, vaciarCarrito } = useCart();
     const {usuaarioActual} = useAuth();
     const router = useRouter();
     const [procesado,setProcesado] = useState(false);
 
-    if(!usuaarioActual){
+    if(!usuaarioActual){// autentificaciones
         return (
             <div className="text-center" py-5>
                 <h3>Debnes iniciar session para finalizar la compra</h3>
@@ -30,7 +30,8 @@ export default function ChechoutPage(){
             </div>
         );
     }
-
+    // aqui va toda la logica de la estrucutra de la factura, la estrucutra
+    // sencilla y facil de entender del tipo encabezado cuerpo con los detalles y los productos,etc.
     function generarFactura(){
         const doc = new jsPDF();
         const numeroFactura=math.floor(Math.random()*900000) + 100000;
@@ -51,6 +52,7 @@ export default function ChechoutPage(){
         doc.text("Subtotal", 170, y);
         y += 6;
 
+        // aqui si crea las ireacioens para agregar las iamgenes del carrito
         carrito.forEach((item) => {
         doc.text(item.titulo, 10, y);
         doc.text(String(item.cantidad), 110, y);
@@ -64,5 +66,72 @@ export default function ChechoutPage(){
     doc.text('TOTAL: ${total.toFixed(2)}',10,y);
     return{doc, numerofactura, fecha};
     }
-    
+    function confirmarCompra() {
+    setProcesando(true);
+
+    const { doc, numeroFactura, fecha } = generarFactura();
+        // un objeto
+    const factura = {
+      numero: numeroFactura,
+      fecha,
+      cliente: usuarioActual!.nombre,
+      correo: usuarioActual!.correo,
+      productos: carrito,
+      total,
+    };
+
+    const historial = JSON.parse(localStorage.getItem("facturas") || "[]");
+    historial.push(factura);
+    localStorage.setItem("facturas", JSON.stringify(historial));
+
+    doc.save(`factura-${numeroFactura}.pdf`);
+
+    setTimeout(() => {
+      toast.success(`Factura enviada a ${usuarioActual!.correo}`);
+      vaciarCarrito();
+      setProcesando(false);
+      router.push("/checkout/success");
+    }, 1200);
+  }
+  // interfaz
+  return (
+    <div className="row justify-content-center">
+      <div className="col-12 col-md-8 col-lg-6">
+        <h2 className="mb-4">Confirmar Compra</h2>
+
+        <div className="card mb-4">
+          <div className="card-body">
+            <p><strong>Cliente:</strong> {usuarioActual.nombre}</p>
+            <p><strong>Correo:</strong> {usuarioActual.correo}</p>
+          </div>
+        </div>
+
+        <div className="card mb-4">
+          <div className="card-body">
+            <h5 className="card-title">Resumen del pedido</h5>
+            {carrito.map((item) => (
+              <div className="d-flex justify-content-between" key={item.id}>
+                <span>{item.titulo} x{item.cantidad}</span>
+                <span>${(item.precio * item.cantidad).toFixed(2)}</span>
+              </div>
+            ))}
+            <hr />
+            <div className="d-flex justify-content-between">
+              <strong>Total</strong>
+              <strong>${total.toFixed(2)}</strong>
+            </div>
+          </div>
+        </div>
+
+        <button
+          className="btn btn-success w-100"
+          onClick={confirmarCompra}
+          disabled={procesando}
+        >
+          {procesando ? "Procesando..." : "Confirmar y Generar Factura"}
+        </button>
+      </div>
+    </div>
+  );
+
 }
