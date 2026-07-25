@@ -32,40 +32,41 @@ export default function ChechoutPage(){
     }
     // aqui va toda la logica de la estrucutra de la factura, la estrucutra
     // sencilla y facil de entender del tipo encabezado cuerpo con los detalles y los productos,etc.
-    function generarFactura(){
+      function generarFactura() {
         const doc = new jsPDF();
-        const numeroFactura=Math.floor(Math.random()*900000) + 100000;
+        const numeroFactura = Math.floor(Math.random() * 900000) + 100000;
         const fecha = new Date().toLocaleString();
-        doc.setFontSize(15);
-        doc.text("Super Selectos - FACTURA DE COMPRA",10,15);
-        
-        doc.setFontSize(11);
-        doc.text('FACTURA N: ${numeroFctura}',10,15);
-        doc.text('FECHA: ${fecha}',10,15);
-        doc.text('CLIENTE: ${usuarioActual!.nombre}',10,29);
-        doc.text('CORREO: ${usuarioActual!.correo}',10,46);
 
-        let y = 58;
+        doc.setFontSize(16);
+        doc.text("Super Selectos - Factura de Compra", 10, 15);
+
+        doc.setFontSize(11);
+        doc.text(`Factura N: ${numeroFactura}`, 10, 28);
+        doc.text(`Fecha: ${fecha}`, 10, 35);
+        doc.text(`Cliente: ${usuarioActual!.nombre}`, 10, 42);
+        doc.text(`Correo: ${usuarioActual!.correo}`, 10, 49);
+
+        let y = 62;
         doc.text("Producto", 10, y);
         doc.text("Cant.", 110, y);
         doc.text("Precio", 140, y);
         doc.text("Subtotal", 170, y);
-        y += 6;
+        y += 8;
 
-        // aqui si crea las ireacioens para agregar las iamgenes del carrito
         carrito.forEach((item) => {
         doc.text(item.titulo, 10, y);
         doc.text(String(item.cantidad), 110, y);
         doc.text(`$${item.precio.toFixed(2)}`, 140, y);
         doc.text(`$${(item.precio * item.cantidad).toFixed(2)}`, 170, y);
-        y += 7;
-    });
+        y += 8;
+        });
 
-    y += 7;
-    doc.setFontSize(13);
-    doc.text('TOTAL: ${total.toFixed(2)}',10,y);
-    return{doc, numeroFactura, fecha};
-    }
+        y += 6;
+        doc.setFontSize(13);
+        doc.text(`Total: $${total.toFixed(2)}`, 10, y);
+
+        return { doc, numeroFactura, fecha };
+  }
     function confirmarCompra() {
     setProcesando(true);
 
