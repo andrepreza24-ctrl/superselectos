@@ -20,7 +20,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const [carrito, setCarrito] = useState<Producto[]>([]);
   const [cargado, setCargado] = useState(false);
 
-  useEffect(() => {
+  useEffect(() => { /// 
     const guardado = localStorage.getItem("carrito");
     if (guardado) setCarrito(JSON.parse(guardado));
     setCargado(true);
