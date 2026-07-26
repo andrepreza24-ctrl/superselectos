@@ -6,7 +6,7 @@ Tienda simulada de productos de la canasta basica, con catalogo, autenticacion d
 https://superselectos.vercel.app/
 
 ## Video demostrativo
-[aun no lo grabo lo dejo para el final ]
+https://drive.google.com/drive/folders/1SzGLMCKHggzRAeWfXVXVb-Zr_7VW_rCI?usp=drive_link
 
 ## Tecnologias utilizadas
 - React
@@ -33,26 +33,19 @@ https://superselectos.vercel.app/
 
 1. Clonar el repositorio
 
-```bash
 git clone https://github.com/andrepreza24-ctrl/superselectos.git
-```
 
 2. Entrar a la carpeta del proyecto
 
-```bash
 cd superselectos
-```
 
 3. Instalar las dependencias
 
-```bash
 npm install
-```
+
 
 4. Ejecutar el proyecto en modo desarrollo
 
-```bash
 npm run dev
-```
 
 5. Abrir en el navegador
